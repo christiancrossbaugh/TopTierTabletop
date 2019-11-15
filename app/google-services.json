@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "510171417587",
+    "firebase_url": "https://toptier-tables.firebaseio.com",
+    "project_id": "toptier-tables",
+    "storage_bucket": "toptier-tables.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510171417587:android:0e9a211ded9a4b04162086",
+        "android_client_info": {
+          "package_name": "edu.floridapoly.mobiledeviceapp.fall19.toptiertabletop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "510171417587-6h237s28k1lv5ciarf1pfadjrdrii5c8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.floridapoly.mobiledeviceapp.fall19.toptiertabletop",
+            "certificate_hash": "c7832874b557b62c1303d430b55c7b3df30ec03b"
+          }
+        },
+        {
+          "client_id": "510171417587-h1lpaus2kels9hcjvrfheb09ou0dp0e6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP3giKvOAkUgGJCwNn-7LwwpQQHnepkpA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "510171417587-h1lpaus2kels9hcjvrfheb09ou0dp0e6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
