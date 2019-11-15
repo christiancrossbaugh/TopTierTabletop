@@ -33,15 +33,17 @@
 
     <Button
         android:id="@+id/newCharacterButton"
-        android:layout_width="131dp"
-        android:layout_height="81dp"
+        android:layout_width="95dp"
+        android:layout_height="112dp"
+        android:background="@drawable/icon_book"
+        android:fontFamily="@font/vecna"
         android:text="NEW CHARACTER"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.644"
+        app:layout_constraintHorizontal_bias="0.783"
         app:layout_constraintStart_toEndOf="@+id/newgameButton"
         app:layout_constraintTop_toBottomOf="@+id/partyButton"
-        app:layout_constraintVertical_bias="0.032" />
+        app:layout_constraintVertical_bias="0.093" />
 
     <Button
         android:id="@+id/signoutButton"
@@ -58,15 +60,16 @@
 
     <Button
         android:id="@+id/partyButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="79dp"
+        android:layout_height="98dp"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@drawable/icon_book"
         android:text="@string/party_page"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.112" />
+        app:layout_constraintVertical_bias="0.092" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
