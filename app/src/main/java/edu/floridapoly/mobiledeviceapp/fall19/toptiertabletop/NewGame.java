@@ -8,7 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -30,25 +34,20 @@ public class NewGame extends AppCompatActivity {
 
 
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if(user !=null){
-                    Intent goToHomePage = new Intent(NewGame.this, HomePage.class);
-                    startActivity(goToHomePage);
-                    finish();
-                    return;
-                }
+
             }
         };
 
 
 
-        final EditText charNameEditText = findViewById(R.id.username);
-        final EditText charStoryEditText = findViewById(R.id.password);
-        final EditText charPictureText = findViewById(R.id.name);
+        final EditText partyNameEditText = findViewById(R.id.charNameText);
+        final EditText partyStoryEditText = findViewById(R.id.storyText);
+        //final EditText charPictureText = findViewById(R.id.name);
 
-        final Button finishButton = findViewById(R.id.register);
+        final Button finishButton = findViewById(R.id.immortalize);
         finishButton.setEnabled(true);
 
         finishButton.setOnClickListener(new View.OnClickListener(){
@@ -56,17 +55,23 @@ public class NewGame extends AppCompatActivity {
             public void onClick(View view){
 
 
-                final String charName = charNameEditText.getText().toString();
-                final String charStory = charStoryEditText.getText().toString();
-                final String charPicture = charPictureText.getText().toString();
+                final String partyName = partyNameEditText.getText().toString();
+                final String partyStory = partyStoryEditText.getText().toString();
+                //final String charPicture = charPictureText.getText().toString();
 
 
+                String userId = mAuth.getCurrentUser().getUid();
+                DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Searching for a Player").child(userId).child("character name");
+                currentUserDb.setValue(partyName);
+                currentUserDb = FirebaseDatabase.getInstance().getReference().child("Searching for a Player").child(userId).child("character story");
+                currentUserDb.setValue(partyStory);
+                //Profile pic here
+
+
+                Intent goToHomePage = new Intent(NewGame.this, HomePage.class);
+                startActivity(goToHomePage);
             }
         });
-    }
-
-    public void checkUserMatch(){
-        //DatabaseReference dmDB = FirebaseDatabase
     }
 
     @Override
@@ -80,7 +85,5 @@ public class NewGame extends AppCompatActivity {
         super.onStop();
         mAuth.removeAuthStateListener(firebaseAuthStateListener);
     }
-
-
 
 }

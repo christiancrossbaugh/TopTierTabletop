@@ -32,7 +32,9 @@ public class NewCharacterCreator extends AppCompatActivity {
         setContentView(R.layout.activity_new_player);
         mAuth = FirebaseAuth.getInstance();
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             @Override
+
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
             }
@@ -59,12 +61,14 @@ public class NewCharacterCreator extends AppCompatActivity {
 
                 String userId = mAuth.getCurrentUser().getUid();
                 DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Searching for a Party").child(userId).child("character name");
-                currentUserDb.setValue(charNameEditText);
+                currentUserDb.setValue(charName);
                 currentUserDb = FirebaseDatabase.getInstance().getReference().child("Searching for a Party").child(userId).child("character story");
-                currentUserDb.setValue(charStoryEditText);
+                currentUserDb.setValue(charStory);
                 //Profile pic here
 
 
+                Intent goToHomePage = new Intent(NewCharacterCreator.this, HomePage.class);
+                startActivity(goToHomePage);
             }
         });
     }
