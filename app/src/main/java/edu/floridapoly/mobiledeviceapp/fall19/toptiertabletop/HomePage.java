@@ -28,6 +28,7 @@ public class HomePage extends AppCompatActivity {
         final Button partyB = findViewById(R.id.partyButton);
         final Button playerB = findViewById(R.id.playerButton);
 
+
         //Handly BButtons
 
         newGameB.setOnClickListener(new View.OnClickListener(){
@@ -97,7 +98,7 @@ public class HomePage extends AppCompatActivity {
     private void newGame()
     {
         //Moves the user to the game making screen
-        Intent myNewGame = new Intent(HomePage.this, NewGame.class);
+        Intent myNewGame = new Intent(HomePage.this, SearchGame.class);
         startActivity(myNewGame);
     }
     private void newChar()

@@ -1,15 +1,31 @@
 package edu.floridapoly.mobiledeviceapp.fall19.toptiertabletop;
 
+import android.Manifest;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApi;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,12 +34,29 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 public class NewCharacterCreator extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private double lat;
+    private double longi;
+
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
+    private static final String TAG = "LocationMapSimple";
+    private static final int REQUEST_ERROR = 0;
+
+    private static final String[] LOCATION_PERMISSIONS = new String[]{
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+    };
+    private static final int REQUEST_LOCATION_PERMISSIONS = 0;
+
+    private GoogleApiClient mClient;
+
+    private FusedLocationProviderClient fusedLocationClient;
 
 
     @Override
@@ -31,6 +64,20 @@ public class NewCharacterCreator extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_player);
         mAuth = FirebaseAuth.getInstance();
+
+        mClient = new GoogleApiClient.Builder(this).addApi(LocationServices.API)
+                .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+                    @Override
+                    public void onConnected(@Nullable Bundle bundle) {
+                    }
+
+                    @Override
+                    public void onConnectionSuspended(int i) {
+
+                    }
+                })
+                .build();
+
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             @Override
@@ -53,7 +100,6 @@ public class NewCharacterCreator extends AppCompatActivity {
             @Override
             public void onClick(View view){
 
-
                 final String charName = charNameEditText.getText().toString();
                 final String charStory = charStoryEditText.getText().toString();
                 //final String charPicture = charPictureText.getText().toString();
@@ -64,6 +110,10 @@ public class NewCharacterCreator extends AppCompatActivity {
                 currentUserDb.setValue(charName);
                 currentUserDb = FirebaseDatabase.getInstance().getReference().child("Searching for a Party").child(userId).child("character story");
                 currentUserDb.setValue(charStory);
+                currentUserDb = FirebaseDatabase.getInstance().getReference().child("Searching for a Party").child(userId).child("character lat");
+                currentUserDb.setValue(lat);
+                currentUserDb = FirebaseDatabase.getInstance().getReference().child("Searching for a Party").child(userId).child("character long");
+                currentUserDb.setValue(longi);
                 //Profile pic here
 
 
@@ -71,6 +121,93 @@ public class NewCharacterCreator extends AppCompatActivity {
                 startActivity(goToHomePage);
             }
         });
+
+        GetLocationSetup();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int errorCode = apiAvailability.isGooglePlayServicesAvailable(this);
+
+        if (errorCode != ConnectionResult.SUCCESS) {
+            Dialog errorDialog = apiAvailability.getErrorDialog(this,
+                    errorCode,
+                    REQUEST_ERROR,
+                    new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialogInterface) {
+                            // Leave if services are unavailable.
+                            finish();
+                        }
+                    });
+
+            errorDialog.show();
+        }
+    }
+
+    public void GetLocationSetup() {
+        if (hasLocationPermission()) {
+            getLocation();
+        } else {
+            requestPermissions(LOCATION_PERMISSIONS,
+                    REQUEST_LOCATION_PERMISSIONS);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_LOCATION_PERMISSIONS:
+                if (hasLocationPermission()) {
+                    getLocation();
+                }
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    private void getLocation() {
+        LocationRequest request = LocationRequest.create();
+        request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        request.setNumUpdates(1);
+        request.setInterval(0);
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getBaseContext());
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // GPS location can be null if GPS is switched off
+                        if (location != null) {
+                            Log.i(TAG, "Got a fix: " + location);
+                            Toast toast = Toast.makeText(getBaseContext(),"Got a fix: " + location,Toast.LENGTH_SHORT);
+                            toast.show();
+
+                            lat =location.getLatitude();
+                            longi = location.getLongitude();
+
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("MapDemoActivity", "Error trying to get last GPS location");
+                        e.printStackTrace();
+                    }
+                });
+
+    }
+
+    private boolean hasLocationPermission() {
+        int result = ContextCompat
+                .checkSelfPermission(this, LOCATION_PERMISSIONS[0]);
+        return result == PackageManager.PERMISSION_GRANTED;
     }
 
     @Override
@@ -83,6 +220,7 @@ public class NewCharacterCreator extends AppCompatActivity {
     protected void onStop(){
         super.onStop();
         mAuth.removeAuthStateListener(firebaseAuthStateListener);
+        mClient.disconnect();
     }
 
 

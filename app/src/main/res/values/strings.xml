@@ -15,5 +15,7 @@
     <string name="player_page">Player Page</string>
     <string name="party_page">Party Page</string>
     <string name="new_game">New Game</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyC_PdvU4DhLBMII-Lk6JhW8q2PmbJXpEHM</string>
+
 
 </resources>
