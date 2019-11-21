@@ -3,6 +3,7 @@ package edu.floridapoly.mobiledeviceapp.fall19.toptiertabletop;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,17 +24,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import butterknife.ButterKnife;
 
 public class SearchForPlayer extends AppCompatActivity {
+    private cards cards_data[];
+    private arrayAdapter arrayAdapter;
 
     private FirebaseAuth mAuth;
     private String userType;
     private String notUserType;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
-    private ArrayList<String> al;
-    private ArrayAdapter<String> arrayAdapter;
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private int i;
 
 
+    ListView listView;
+    List<cards> rowItems;
 
 
     @Override
@@ -50,10 +54,10 @@ public class SearchForPlayer extends AppCompatActivity {
             }
         };
 
-        al = new ArrayList<>();
+        rowItems = new ArrayList<>();
         getPlayerDB();
 
-        arrayAdapter = new ArrayAdapter<>(this, R.layout.item, R.id.helloText, al );
+        arrayAdapter = new arrayAdapter(this,R.layout.item,rowItems);
 
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
@@ -63,7 +67,7 @@ public class SearchForPlayer extends AppCompatActivity {
             public void removeFirstObjectInAdapter() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
                 Log.d("LIST", "removed object!");
-                al.remove(0);
+                rowItems.remove(0);
                 arrayAdapter.notifyDataSetChanged();
             }
 
@@ -110,8 +114,9 @@ public class SearchForPlayer extends AppCompatActivity {
                 if(dataSnapshot.exists() ){
                     String key = dataSnapshot.getKey();
                     if(key != user.getUid()){
-                        String adderval = dataSnapshot.child("character name").getValue().toString();
-                        al.add(adderval);
+                        cards item = new cards(dataSnapshot.getKey(),dataSnapshot.child("character name").getValue().toString());
+
+                        rowItems.add(item);
                         arrayAdapter.notifyDataSetChanged();
                     }
                 }

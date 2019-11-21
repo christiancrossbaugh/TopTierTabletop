@@ -3,6 +3,7 @@ package edu.floridapoly.mobiledeviceapp.fall19.toptiertabletop;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,17 +24,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import butterknife.ButterKnife;
 
 public class SearchForParty extends AppCompatActivity {
-
+    private cards cards_data[];
+    private arrayAdapter arrayAdapter;
     private FirebaseAuth mAuth;
     private String userType;
     private String notUserType;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
-    private ArrayList<String> al;
-    private ArrayAdapter<String> arrayAdapter;
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private int i;
+    private String currentUId;
 
+    private DatabaseReference usersDb;
 
+    ListView listView;
+    List<cards> rowItems;
 
 
     @Override
@@ -40,7 +45,12 @@ public class SearchForParty extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_game);
         ButterKnife.inject(this);
+
+        usersDb = FirebaseDatabase.getInstance().getReference();
+
         mAuth = FirebaseAuth.getInstance();
+        currentUId = mAuth.getCurrentUser().getUid();
+
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             @Override
@@ -50,10 +60,10 @@ public class SearchForParty extends AppCompatActivity {
             }
         };
 
-        al = new ArrayList<>();
+        rowItems = new ArrayList<cards>();
         getPartyDB();
 
-        arrayAdapter = new ArrayAdapter<>(this, R.layout.item, R.id.helloText, al );
+        arrayAdapter = new arrayAdapter(this,R.layout.item,rowItems);
 
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
@@ -63,20 +73,29 @@ public class SearchForParty extends AppCompatActivity {
             public void removeFirstObjectInAdapter() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
                 Log.d("LIST", "removed object!");
-                al.remove(0);
+                rowItems.remove(0);
                 arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onLeftCardExit(Object dataObject) {
-                //Do something on the left!
-                //You also have access to the original object.
-                //If you want to use it just cast it (String) dataObject
+
+                cards obj = (cards) dataObject;
+                String userId = obj.getUserId();
+                String characterName = obj.getName();
+
+                usersDb.child("Searching for a Player").child(userId).child("connections").child("no").child(currentUId).setValue(true);
                 Toast.makeText(SearchForParty.this, "Left!",Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
+                cards obj = (cards) dataObject;
+                String userId = obj.getUserId();
+                String characterName = obj.getName();
+
+                usersDb.child("Searching for a Player").child(userId).child("connections").child("yes").child(currentUId).setValue(true);
+
                 Toast.makeText(SearchForParty.this, "right!",Toast.LENGTH_SHORT).show();
             }
 
@@ -107,12 +126,13 @@ public class SearchForParty extends AppCompatActivity {
         partyDB.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                if(dataSnapshot.exists() ){
+                if(dataSnapshot.exists() && !dataSnapshot.child("connections").child("no").hasChild(currentUId)&& !dataSnapshot.child("connections").child("yes").hasChild(currentUId) ){
                     String key = dataSnapshot.getKey();
                     if(key != user.getUid())
                     {
-                        String adderval = dataSnapshot.child("Party name").getValue().toString();
-                        al.add(adderval);
+                        cards item = new cards(dataSnapshot.getKey(),dataSnapshot.child("Party name").getValue().toString());
+
+                        rowItems.add(item);
                         arrayAdapter.notifyDataSetChanged();
                     }
                 }
