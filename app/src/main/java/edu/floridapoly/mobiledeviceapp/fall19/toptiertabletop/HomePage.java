@@ -23,18 +23,27 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
         mAuth = FirebaseAuth.getInstance();
 
-        final Button newGameB = findViewById(R.id.newgameButton);
+        final Button findpartyB = findViewById(R.id.newgameButton);
+        final Button findplayerB = findViewById(R.id.newPlayerButton);
         final Button newCharB = findViewById(R.id.newCharacterButton);
+        final Button newPartyB = findViewById(R.id.newPartyButton);
         final Button partyB = findViewById(R.id.partyButton);
         final Button playerB = findViewById(R.id.playerButton);
 
 
         //Handly BButtons
 
-        newGameB.setOnClickListener(new View.OnClickListener(){
+        findpartyB.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                newGame();
+                newPartyFinder();
+            }
+
+        });
+        findplayerB.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                newPlayerFinder();
             }
 
         });
@@ -42,6 +51,13 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 newChar();
+            }
+
+        });
+        newPartyB.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                newParty();
             }
 
         });
@@ -66,6 +82,7 @@ public class HomePage extends AppCompatActivity {
 
     }
 
+
     /*
     This function will display what games the player is in.
      */
@@ -83,7 +100,7 @@ public class HomePage extends AppCompatActivity {
     {
         //When the button is clicked, this moves into the search game
         //
-        Intent searchGameIntent = new Intent(this, SearchGame.class);
+        Intent searchGameIntent = new Intent(this, SearchForParty.class);
         startActivity(searchGameIntent);
 
     }
@@ -95,10 +112,15 @@ public class HomePage extends AppCompatActivity {
         //this function will move the player to the new gamePage
     }
 
-    private void newGame()
+    private void newPartyFinder()
     {
         //Moves the user to the game making screen
-        Intent myNewGame = new Intent(HomePage.this, SearchGame.class);
+        Intent findParty = new Intent(HomePage.this, SearchForParty.class);
+        startActivity(findParty);
+    }private void newPlayerFinder()
+    {
+        //Moves the user to the game making screen
+        Intent myNewGame = new Intent(HomePage.this, SearchForPlayer.class);
         startActivity(myNewGame);
     }
     private void newChar()
@@ -107,7 +129,12 @@ public class HomePage extends AppCompatActivity {
         Intent myNewChar = new Intent(HomePage.this, NewCharacterCreator.class);
         startActivity(myNewChar);
     }
-
+    private void newParty()
+    {
+        //Moves the user to the game making screen
+        Intent findParty = new Intent(HomePage.this, NewPartyCreator.class);
+        startActivity(findParty);
+    }
     private void openPlayerPage()
     {
         Intent myPlayerPage = new Intent(HomePage.this,PlayerBookPage.class);

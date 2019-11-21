@@ -8,15 +8,29 @@
     android:background="@drawable/home_page">
 
     <Button
+        android:id="@+id/newPlayerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:text="Find players"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/newCharacterButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playerButton"
+        app:layout_constraintVertical_bias="0.107" />
+
+    <Button
         android:id="@+id/newgameButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
-        android:text="@string/new_game"
+        android:layout_marginStart="40dp"
+        android:text="Find party"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.304"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/playerButton"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintVertical_bias="0.22" />
 
     <Button
         android:id="@+id/playerButton"
@@ -43,6 +57,20 @@
         app:layout_constraintStart_toEndOf="@+id/newgameButton"
         app:layout_constraintTop_toBottomOf="@+id/partyButton"
         app:layout_constraintVertical_bias="0.093" />
+
+    <Button
+        android:id="@+id/newPartyButton"
+        android:layout_width="95dp"
+        android:layout_height="112dp"
+        android:background="@drawable/icon_book"
+        android:fontFamily="@font/vecna"
+        android:text="NEW PARTY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.782"
+        app:layout_constraintStart_toEndOf="@+id/newgameButton"
+        app:layout_constraintTop_toBottomOf="@+id/partyButton"
+        app:layout_constraintVertical_bias="0.38" />
 
     <Button
         android:id="@+id/signoutButton"

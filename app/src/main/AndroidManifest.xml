@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".NewPlayer" />
-        <activity android:name=".SearchGame"></activity>
+        <activity android:name=".SearchForParty"></activity>
+
+        <activity android:name=".SearchForPlayer" />
         <activity
             android:name=".LoginPage"
             android:label="TopTierTabletop">
@@ -30,6 +32,7 @@
 
         <activity android:name=".HomePage" />
         <activity android:name=".NewCharacterCreator" />
+        <activity android:name=".NewPartyCreator" />
         <activity android:name=".PlayerBookPage"></activity>
         <activity android:name=".GamePage"></activity>
     </application>

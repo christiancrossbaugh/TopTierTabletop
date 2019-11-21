@@ -37,6 +37,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:cardview-v7:26.0.0-alpha1'
 }
 
 apply plugin: 'com.google.gms.google-services'

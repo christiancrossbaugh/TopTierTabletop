@@ -11,23 +11,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.api.GoogleApi;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -38,7 +31,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-public class NewCharacterCreator extends AppCompatActivity {
+public class NewPartyCreator extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private double lat;
@@ -62,7 +55,7 @@ public class NewCharacterCreator extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_player);
+        setContentView(R.layout.activity_new_game);
         mAuth = FirebaseAuth.getInstance();
 
         mClient = new GoogleApiClient.Builder(this).addApi(LocationServices.API)
@@ -106,19 +99,18 @@ public class NewCharacterCreator extends AppCompatActivity {
 
 
                 String userId = mAuth.getCurrentUser().getUid();
-                DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Searching for a Party").child(userId).child("character name");
+                DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Searching for a Player").child(userId).child("Party name");
                 currentUserDb.setValue(charName);
-
-                currentUserDb = FirebaseDatabase.getInstance().getReference().child("Searching for a Party").child(userId).child("character story");
+                currentUserDb = FirebaseDatabase.getInstance().getReference().child("Searching for a Player").child(userId).child("Party story");
                 currentUserDb.setValue(charStory);
-                currentUserDb = FirebaseDatabase.getInstance().getReference().child("Searching for a Party").child(userId).child("character lat");
+                currentUserDb = FirebaseDatabase.getInstance().getReference().child("Searching for a Player").child(userId).child("Party lat");
                 currentUserDb.setValue(lat);
-                currentUserDb = FirebaseDatabase.getInstance().getReference().child("Searching for a Party").child(userId).child("character long");
+                currentUserDb = FirebaseDatabase.getInstance().getReference().child("Searching for a Player").child(userId).child("Party long");
                 currentUserDb.setValue(longi);
                 //Profile pic here
 
 
-                Intent goToHomePage = new Intent(NewCharacterCreator.this, HomePage.class);
+                Intent goToHomePage = new Intent(NewPartyCreator.this, HomePage.class);
                 startActivity(goToHomePage);
             }
         });
