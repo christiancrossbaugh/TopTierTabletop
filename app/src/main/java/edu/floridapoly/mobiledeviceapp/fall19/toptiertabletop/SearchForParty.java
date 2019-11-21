@@ -13,6 +13,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
@@ -93,9 +94,9 @@ public class SearchForParty extends AppCompatActivity {
                 cards obj = (cards) dataObject;
                 String userId = obj.getUserId();
                 String characterName = obj.getName();
-
                 usersDb.child("Searching for a Player").child(userId).child("connections").child("yes").child(currentUId).setValue(true);
-
+                
+                isConnectionMatch(userId);
                 Toast.makeText(SearchForParty.this, "right!",Toast.LENGTH_SHORT).show();
             }
 
@@ -118,6 +119,23 @@ public class SearchForParty extends AppCompatActivity {
 
     }
 
+    private void isConnectionMatch(String userId) {
+        DatabaseReference currentUserConnectionsDb = usersDb.child("Searching for a Player").child(currentUId).child("connections").child("yes").child(userId);
+        currentUserConnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    Toast.makeText(SearchForParty.this,"New connection",Toast.LENGTH_LONG).show();
+                    usersDb.child("Searching for a Party").child(dataSnapshot.getKey()).child("connections").child("matches").child(currentUId).setValue(true);
+                    usersDb.child("Searching for a Player").child(currentUId).child("connections").child("matches").child(dataSnapshot.getKey()).setValue(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
 
 
     public void getPartyDB(){
