@@ -4,98 +4,118 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomePage"
-    android:background="@drawable/home_page">
+    android:background="@drawable/book_page_background"
+    tools:context=".HomePage">
 
-    <Button
-        android:id="@+id/newPlayerButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:text="Find players"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/newCharacterButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playerButton"
-        app:layout_constraintVertical_bias="0.107" />
-
-    <Button
-        android:id="@+id/newgameButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:text="Find party"
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="113dp"
+        android:layout_height="637dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginBottom="100dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.304"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playerButton"
-        app:layout_constraintVertical_bias="0.22" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/dashHeader"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/playerButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/player_page"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/partyButton"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.112" />
+        <Button
+            android:id="@+id/partyButton"
+            android:layout_width="90dp"
+            android:layout_height="98dp"
+            android:background="@drawable/icon_book"
+            android:fontFamily="@font/vecna"
+            android:text="@string/party_page"
+            android:textColor="#FFC107" />
 
-    <Button
-        android:id="@+id/newCharacterButton"
-        android:layout_width="95dp"
-        android:layout_height="112dp"
-        android:background="@drawable/icon_book"
+        <Button
+            android:id="@+id/playerButton"
+            android:layout_width="90dp"
+            android:layout_height="98dp"
+            android:background="@drawable/icon_book"
+            android:fontFamily="@font/vecna"
+            android:text="@string/player_page"
+            android:textColor="#FFC107" />
+
+        <Button
+            android:id="@+id/newgameButton"
+            android:layout_width="90dp"
+            android:layout_height="98dp"
+            android:background="@drawable/icon_book"
+            android:fontFamily="@font/vecna"
+            android:text="Find party"
+            android:textColor="#FFC107" />
+
+        <Button
+            android:id="@+id/newPartyButton"
+            android:layout_width="90dp"
+            android:layout_height="98dp"
+            android:background="@drawable/icon_book"
+            android:fontFamily="@font/vecna"
+            android:text="NEW PARTY"
+            android:textColor="#FFC107" />
+
+        <Button
+            android:id="@+id/newCharacterButton"
+            android:layout_width="90dp"
+            android:layout_height="98dp"
+            android:background="@drawable/icon_book"
+            android:fontFamily="@font/vecna"
+            android:text="NEW CHARACTER"
+            android:textColor="#FFC107" />
+
+        <Button
+            android:id="@+id/newPlayerButton"
+            android:layout_width="90dp"
+            android:layout_height="98dp"
+            android:background="@drawable/icon_book"
+            android:fontFamily="@font/vecna"
+            android:text="Find players"
+            android:textColor="#FFC107" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/dashHeader"
+        android:layout_width="263dp"
+        android:layout_height="151dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/icon_ribbon"
         android:fontFamily="@font/vecna"
-        android:text="NEW CHARACTER"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="Let the Games Begin"
+        android:textColor="#FFC107"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.783"
-        app:layout_constraintStart_toEndOf="@+id/newgameButton"
-        app:layout_constraintTop_toBottomOf="@+id/partyButton"
-        app:layout_constraintVertical_bias="0.093" />
-
-    <Button
-        android:id="@+id/newPartyButton"
-        android:layout_width="95dp"
-        android:layout_height="112dp"
-        android:background="@drawable/icon_book"
-        android:fontFamily="@font/vecna"
-        android:text="NEW PARTY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.782"
-        app:layout_constraintStart_toEndOf="@+id/newgameButton"
-        app:layout_constraintTop_toBottomOf="@+id/partyButton"
-        app:layout_constraintVertical_bias="0.38" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/signoutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sign out"
+        android:layout_width="268dp"
+        android:layout_height="92dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginRight="100dp"
+        android:background="@drawable/icon_gold"
+        android:fontFamily="@font/vecna"
         android:onClick="logoutUser"
+        android:text="Sign out"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newgameButton"
-        app:layout_constraintVertical_bias="0.85" />
+        app:layout_constraintTop_toBottomOf="@+id/dashHeader" />
 
-    <Button
-        android:id="@+id/partyButton"
-        android:layout_width="79dp"
-        android:layout_height="98dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/icon_book"
-        android:text="@string/party_page"
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="273dp"
+        android:layout_height="342dp"
+        android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.015" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/icon_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

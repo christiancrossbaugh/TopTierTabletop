@@ -4,59 +4,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewCharacterCreator"
-    android:background="@drawable/new_player">
+    android:background="@drawable/book_page_background"
+    tools:context=".NewCharacterCreator">
 
 
     <Button
         android:id="@+id/immortalize"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_gravity="start"
+        android:layout_marginStart="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginRight="64dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/icon_gold"
         android:enabled="false"
+        android:fontFamily="@font/vecna"
         android:text="Immortalize"
+        android:textColor="#000000"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/storyText"
-        app:layout_constraintVertical_bias="0.419" />
+        app:layout_constraintTop_toBottomOf="@+id/storyText" />
 
     <EditText
         android:id="@+id/storyText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="301dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/book_page_background"
+        android:fontFamily="@font/vecna"
         android:gravity="center"
         android:hint="Enter your Character's epic story here!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="#050101"
+        android:textColorHint="#000000"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/immortalize"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.26"/>
+        app:layout_constraintTop_toBottomOf="@+id/playerClass" />
 
     <EditText
         android:id="@+id/charNameText"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
 
+        android:layout_marginTop="63dp"
+        android:background="@drawable/icon_ribbon"
+        android:fontFamily="@font/vecna"
         android:hint="Your Character Name Here"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        android:padding="@dimen/activity_horizontal_margin"
+        android:textColor="#FFC107"
+        android:textColorHint="#FFC107"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="@+id/playerClass"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imageView2"
+        android:layout_width="217dp"
+        android:layout_height="194dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginRight="23dp"
+        app:layout_constraintBottom_toTopOf="@+id/playerClass"
+        app:layout_constraintEnd_toStartOf="@+id/playerLevel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/charNameText"
+        app:srcCompat="@drawable/icon_icon" />
+
+    <TextView
+        android:id="@+id/playerLevel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="63dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginRight="55dp"
+        android:fontFamily="@font/vecna"
+        android:text="Level 15"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.056"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.026"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <TextView
+        android:id="@+id/playerClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="26dp"
+        android:layout_marginRight="26dp"
+        android:layout_marginBottom="27dp"
+        android:fontFamily="@font/vecna"
+        android:text="Class: Druid"
+        android:textColor="#020000"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/storyText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 </androidx.constraintlayout.widget.ConstraintLayout>
