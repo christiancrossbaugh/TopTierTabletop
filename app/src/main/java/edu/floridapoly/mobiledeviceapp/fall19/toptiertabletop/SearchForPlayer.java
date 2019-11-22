@@ -145,7 +145,7 @@ public class SearchForPlayer extends AppCompatActivity {
                 if(dataSnapshot.exists()  && !dataSnapshot.child("connections").child("no").hasChild(currentUId)&& !dataSnapshot.child("connections").child("yes").hasChild(currentUId)  ){
                     String key = dataSnapshot.getKey();
                     if(key != user.getUid()){
-                        cards item = new cards(dataSnapshot.getKey(),dataSnapshot.child("character name").getValue().toString());
+                        cards item = new cards(dataSnapshot.getKey(),dataSnapshot.child("character name").getValue().toString(),dataSnapshot.child("character story").getValue().toString());
 
                         rowItems.add(item);
                         arrayAdapter.notifyDataSetChanged();

@@ -3,9 +3,12 @@ package edu.floridapoly.mobiledeviceapp.fall19.toptiertabletop;
 public class cards  {
     private String userId;
     private String name;
-    public cards(String userId, String name){
+    private String story;
+
+    public cards(String userId, String name, String story){
         this.userId = userId;
         this.name = name;
+        this.story = story;
     }
 
     public String getUserId(){
@@ -19,5 +22,13 @@ public class cards  {
     }
     public void setName(String name){
         this.name = name;
+    }
+
+    public String getStory() {
+        return story;
+    }
+
+    public void setStory(String story) {
+        this.story = story;
     }
 }

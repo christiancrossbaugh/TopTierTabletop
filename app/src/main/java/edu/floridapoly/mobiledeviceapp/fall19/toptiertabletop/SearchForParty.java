@@ -148,7 +148,7 @@ public class SearchForParty extends AppCompatActivity {
                     String key = dataSnapshot.getKey();
                     if(key != user.getUid())
                     {
-                        cards item = new cards(dataSnapshot.getKey(),dataSnapshot.child("Party name").getValue().toString());
+                        cards item = new cards(dataSnapshot.getKey(),dataSnapshot.child("Party name").getValue().toString(),dataSnapshot.child("Party story").getValue().toString());
 
                         rowItems.add(item);
                         arrayAdapter.notifyDataSetChanged();
