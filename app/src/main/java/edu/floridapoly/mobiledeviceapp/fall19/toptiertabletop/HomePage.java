@@ -29,8 +29,14 @@ public class HomePage extends AppCompatActivity {
         final Button newPartyB = findViewById(R.id.newPartyButton);
         final Button partyB = findViewById(R.id.partyButton);
         final Button playerB = findViewById(R.id.playerButton);
+        final Button howToB = (Button)findViewById(R.id.howToButton);
 
-
+        howToB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomePage.this, HowToPlay.class));
+            }
+        });
         //Handly BButtons
 
         findpartyB.setOnClickListener(new View.OnClickListener(){
@@ -69,6 +75,7 @@ public class HomePage extends AppCompatActivity {
             }
 
         });
+
 
         playerB.setOnClickListener(new View.OnClickListener(){
             @Override

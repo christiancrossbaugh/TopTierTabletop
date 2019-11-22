@@ -26,7 +26,7 @@
             android:layout_height="98dp"
             android:background="@drawable/icon_book"
             android:fontFamily="@font/vecna"
-            android:text="@string/party_page"
+            android:text="Party Page"
             android:textColor="#FFC107" />
 
         <Button
@@ -117,5 +117,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/icon_icon" />
+
+    <Button
+        android:id="@+id/howToButton"
+        android:layout_width="159dp"
+        android:layout_height="69dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="400dp"
+        android:background="@drawable/icon_gold"
+        android:fontFamily="@font/vecna"
+        android:text="How To Play"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
