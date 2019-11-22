@@ -120,7 +120,7 @@ public class SearchForParty extends AppCompatActivity {
     }
 
     private void isConnectionMatch(String userId) {
-        DatabaseReference currentUserConnectionsDb = usersDb.child("Searching for a Player").child(currentUId).child("connections").child("yes").child(userId);
+        DatabaseReference currentUserConnectionsDb = usersDb.child("Searching for a Party").child(currentUId).child("connections").child("yes").child(userId);
         currentUserConnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
